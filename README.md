@@ -1,13 +1,15 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Webpack
+# ToDo-list
 
-> This is a boilerplate webpack that can be used as a starting point for projects.
-
+> This is a project to manipulate a daily ToDo list by :
+• Adding a list of tasks
+• Removing tasks
 
 ## Built With
 
 - Webpack
+- HTML, CSS and JS
 
 ## Getting Started
 
@@ -18,7 +20,7 @@ To get a local copy up and running follow these simple example steps.
 ### Setup
 
 Clone this repository by using the command line : 
-`git clone https://github.com/wassimchakib/Webpack.git`
+`git clone https://github.com/wassimchakib/ToDo-list.git`
 
 ### Install
 
