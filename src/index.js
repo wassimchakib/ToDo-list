@@ -10,11 +10,16 @@ const populateListItems = (arrayOfTasks) => {
   arrayOfTasks.forEach((task) => {
     listContent.innerHTML += `
     <li>
-      <button class="check-btn" ><i class="fa-solid fa-check ${task.completed ? 'active' : ''}"></i></button>
+      <button class="check-btn" ><i class="fa-solid fa-check ${
+  task.completed ? 'active' : ''
+}"></i></button>
       <div class="container ${task.completed ? 'active' : ''}">
-      <div contenteditable="true" class="content-description">${task.description}</div>
+      <div contenteditable="true" class="content-description">${
+  task.description
+}</div>
       </div>
-      <i class="fa-solid fa-ellipsis-vertical"></i>
+      <i class="move-item fa-solid fa-ellipsis-vertical"></i>
+      <i class="delete-item fa-regular fa-trash-can"></i>
     </li>
     `;
   });
@@ -31,10 +36,52 @@ const populateListItemsWithCheckBtns = (arr) => {
       checkBtn.childNodes[0].classList.toggle('active');
       checkBtn.nextElementSibling.classList.toggle('active');
       if (checkBtn.childNodes[0].classList.contains('active')) {
-        toDoTasks.modifyTask(index, checkBtn.nextElementSibling.textContent.trim(), true);
+        toDoTasks.modifyTask(
+          index,
+          checkBtn.nextElementSibling.textContent.trim(),
+          true,
+        );
       } else {
-        toDoTasks.modifyTask(index, checkBtn.nextElementSibling.textContent.trim(), false);
+        toDoTasks.modifyTask(
+          index,
+          checkBtn.nextElementSibling.textContent.trim(),
+          false,
+        );
       }
+    });
+  });
+
+  // Modify values + delete btn event listener
+  const modifyTaskLists = document.querySelectorAll('.content-description');
+  const moveItemBtn = document.querySelectorAll('.move-item');
+  const deleteItemBtn = document.querySelectorAll('.delete-item');
+  modifyTaskLists.forEach((modifyTask, index) => {
+    modifyTask.addEventListener('input', () => {
+      toDoTasks.modifyTask(
+        index,
+        modifyTask.textContent,
+        toDoTasks.arr[index].completed,
+      );
+    });
+
+    modifyTask.addEventListener('focus', () => {
+      modifyTask.parentElement.parentElement.classList.add('editing');
+      moveItemBtn[index].classList.add('none');
+      deleteItemBtn[index].classList.add('active');
+      // prevent input from loosing focus
+      deleteItemBtn[index].addEventListener('pointerdown', (event) => {
+        event.preventDefault();
+      });
+      deleteItemBtn[index].addEventListener('click', () => {
+        toDoTasks.deleteTask(index);
+        populateListItemsWithCheckBtns(sortArray(toDoTasks.arr));
+      });
+    });
+
+    modifyTask.addEventListener('blur', () => {
+      modifyTask.parentElement.parentElement.classList.remove('editing');
+      moveItemBtn[index].classList.remove('none');
+      deleteItemBtn[index].classList.remove('active');
     });
   });
 };
@@ -60,14 +107,6 @@ const clearBtn = document.querySelector('.clear-btn');
 clearBtn.addEventListener('click', () => {
   toDoTasks.deleteTask();
   populateListItemsWithCheckBtns(sortArray(toDoTasks.arr));
-});
-
-// Modify values
-const modifyTaskLists = document.querySelectorAll('.content-description');
-modifyTaskLists.forEach((modifyTask, index) => {
-  modifyTask.addEventListener('input', () => {
-    toDoTasks.modifyTask(index, modifyTask.textContent, toDoTasks.arr[index].completed);
-  });
 });
 
 // Refresh Button

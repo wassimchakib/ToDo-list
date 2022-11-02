@@ -145,6 +145,7 @@ main .list-placeholder .clear-btn:hover {
   align-items: center;
   justify-content: space-between;
   gap: var(--fs-0);
+  position: relative;
 }
 
 .list-content li button {
@@ -158,8 +159,22 @@ main .list-placeholder .clear-btn:hover {
   height: 18px;
 }
 
-.list-placeholder .list-content li > i {
+.list-placeholder .list-content li > .move-item {
   cursor: move;
+}
+
+.list-placeholder .list-content li > .move-item.none {
+  cursor: move;
+  display: none;
+}
+
+.list-placeholder .list-content li > .delete-item {
+  cursor: pointer;
+  display: none;
+}
+
+.list-placeholder .list-content li > .delete-item.active {
+  display: inline;
 }
 
 .list-placeholder .list-content li button > i {
@@ -177,11 +192,20 @@ main .list-placeholder .clear-btn:hover {
   word-wrap: break-word;
   display: flex;
   align-items: center;
-  padding: 16px 0;
 }
 
 .list-content li .container.active {
   text-decoration: line-through;
+}
+
+.list-content li .container .content-description {
+  width: 100%;
+  outline: none;
+  padding: 16px 0;
+}
+
+.list-content li.editing {
+  background-color: #fffeca;
 }
 
 .refresh-btn.active {
