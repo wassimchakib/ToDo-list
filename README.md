@@ -30,6 +30,8 @@ Clone this repository by using the command line :
 
 ### Deployment
 
+### Live Demo
+Click here for [live demo](https://wassimchakib.github.io/ToDo-list/dist/index.html)
 
 
 ## Authors
