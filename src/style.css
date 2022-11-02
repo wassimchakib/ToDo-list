@@ -179,3 +179,21 @@ main .list-placeholder .clear-btn:hover {
   align-items: center;
   padding: 16px 0;
 }
+
+.list-content li .container.active {
+  text-decoration: line-through;
+}
+
+.refresh-btn.active {
+  animation: animateRefresh 2s;
+}
+
+@keyframes animateRefresh {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(720deg);
+  }
+}
